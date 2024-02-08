@@ -1,0 +1,9 @@
+﻿.navbar-expand-sm .navbar-nav .nav-link {
+    transition: border-radius 0.3s ease;
+    border-radius: 15px;
+}
+.navbar-expand-sm .navbar-nav .nav-link:hover {
+    background-color: #F7D342;
+    color: #ffffff;
+    border-radius: 15px;
+}
