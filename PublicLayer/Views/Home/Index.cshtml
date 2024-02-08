@@ -2,37 +2,55 @@
     ViewBag.Title = "Home Page";
 }
 
-<link rel="stylesheet" href="~/Archivos/CSS/indexStyle.css">
+<head>
 
-<div id="carouselExampleIndicators" class="carousel slide mt-0" data-bs-ride="carousel">
-    <div class="carousel-indicators">
-        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
-        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
-    </div>
-    <div class="carousel-inner">
-        <div class="carousel-item active d-item">
-            <img src="~/Archivos/Imagenes/banner.jpg" class="d-block w-100 d-img" alt="...">
-            <div class="carousel-caption top-0 mt-4">
-                <p class="mt-1 fs-3 text-light mb-0">¡Bienvenido a </p>
-                <h1 class="display-1">Pet's Poppins🎆</h1>
-                <p class="mt-2 fs-3 text-light fw-bolder">El sitio E-commerce perfecto con todo lo que tu mascota necesita! 🤩</p>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="~/Archivos/CSS/indexStyle.css">
+    <link href='https://fonts.googleapis.com/css?family=Baloo' rel='stylesheet'>
+    <link href='https://fonts.googleapis.com/css?family=ABeeZee' rel='stylesheet'>
+
+</head>
+
+<body>
+
+    <div id="carouselExampleIndicators" class="carousel slide mt-0 w-100" data-bs-ride="carousel">
+        <div class="carousel-indicators">
+            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
+            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
+        </div>
+        <div class="carousel-inner w-100 mt-0">
+            <div class="carousel-item active w-100">
+                <img src="~/Archivos/Imagenes/banner.jpg" class="d-block w-100" alt="...">
+                <div class="carousel-caption top-0 mt-4">
+                    <p class="mt-1 fs-3 mb-0">¡Bienvenido a </p>
+                    <h1 class="display-1">Pet's Poppins🎆</h1>
+                    <p class="mt-2 fs-3">El sitio E-commerce perfecto con todo lo que tu mascota necesita! 🤩</p>
+                </div>
             </div>
-        </div>
-        <div class="carousel-item">
-            <img src="~/Archivos/Imagenes/banner2.jpg" class="d-block w-100 d-img" alt="...">
-        </div>
-        <div class="carousel-item">
-            <img src="~/Archivos/Imagenes/banner3.jpg" class="d-block w-100" alt="...">
-        </div>
+            <div class="carousel-item">
+                <img src="~/Archivos/Imagenes/banner2.jpg" class="d-block w-100" alt="...">
+                <div class="carousel-caption top-0 mt-4">
+                    <h2 class="display-1 textBanner">¡¡Aprovecha las ofertas de verano!!</h2>
+                    <p class="mt-2 fs-3 textBanner">Hasta un 70% de descuento</p>
+                </div>
+            </div>
+            <div class="carousel-item">
+                <img src="~/Archivos/Imagenes/banner3.jpg" class="d-block w-100" alt="...">
+                <div class="carousel-caption top-0 mt-4">
+                    <h2 class="display-1 s3">Contamos con Delivery en todo Chile 🎉</h2>
+                    <p class="mt-2 fs-3 s3">¿Que esperas para pedir? 🐶 </p>
+                </div>
+            </div>
 
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+        </button>
     </div>
-    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
-        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-        <span class="visually-hidden">Previous</span>
-    </button>
-    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
-        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-        <span class="visually-hidden">Next</span>
-    </button>
-</div>
+</body>
