@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="7590d2bf1ead4b4cbe48e0d33819657c" Name="Diagram1">
+        <EntityTypeShape EntityType="ecommerceModel.Carrito" Width="1.5" PointX="5.25" PointY="3.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="ecommerceModel.Categoria" Width="1.5" PointX="0.75" PointY="3.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="ecommerceModel.Cliente" Width="1.5" PointX="0.75" PointY="8.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="ecommerceModel.DetalleVenta" Width="1.5" PointX="5.25" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ecommerceModel.Marca" Width="1.5" PointX="0.75" PointY="1.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="ecommerceModel.Producto" Width="1.5" PointX="3" PointY="3" IsExpanded="true" />
+        <EntityTypeShape EntityType="ecommerceModel.Sucursal" Width="1.5" PointX="0.75" PointY="11.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ecommerceModel.sysdiagrams" Width="1.5" PointX="5.75" PointY="7" IsExpanded="true" />
+        <EntityTypeShape EntityType="ecommerceModel.Usuario" Width="1.5" PointX="7.75" PointY="2" IsExpanded="true" />
+        <EntityTypeShape EntityType="ecommerceModel.Venta" Width="1.5" PointX="3" PointY="9.125" IsExpanded="true" />
+        <AssociationConnector Association="ecommerceModel.FK__Carrito__idClien__34C8D9D1" ManuallyRouted="false" />
+        <AssociationConnector Association="ecommerceModel.FK__Carrito__idProdu__35BCFE0A" ManuallyRouted="false" />
+        <AssociationConnector Association="ecommerceModel.FK__Producto__idCate__2B3F6F97" ManuallyRouted="false" />
+        <AssociationConnector Association="ecommerceModel.FK__venta__idCliente__3A81B327" ManuallyRouted="false" />
+        <AssociationConnector Association="ecommerceModel.FK__DetalleVe__idPro__403A8C7D" ManuallyRouted="false" />
+        <AssociationConnector Association="ecommerceModel.FK__DetalleVe__idVen__3F466844" ManuallyRouted="false" />
+        <AssociationConnector Association="ecommerceModel.FK__Producto__idMarc__2A4B4B5E" ManuallyRouted="false" />
+        <AssociationConnector Association="ecommerceModel.FK__venta__idSucursa__3B75D760" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
