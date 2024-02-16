@@ -14,7 +14,39 @@ namespace BusinessLayer
 
         public List<Usuario> ListarUsuarios()
         {
-            return oDL_Usuarios.listarUsuarios();
+            return oDL_Usuarios.ListarUsuarios();
+        }
+
+        public int RegistrarUsuario(Usuario obj, out string Mensaje)
+        {
+            Mensaje = string.Empty;
+
+            if (string.IsNullOrEmpty(obj.nombre) || string.IsNullOrWhiteSpace(obj.nombre)) { 
+
+                  Mensaje = "El campo nombre es obligatorio";
+                  
+            }else if (string.IsNullOrEmpty(obj.apellidos) || string.IsNullOrWhiteSpace(obj.apellidos))
+            {
+                  Mensaje = "El campo apellidos es obligatorio";
+                 
+            }else if (string.IsNullOrEmpty(obj.correo) || string.IsNullOrWhiteSpace(obj.correo))
+            {
+                  Mensaje = "El campo correo es obligatorio";
+               
+            }
+
+            if (string.IsNullOrEmpty(Mensaje))
+            {
+                string clave = "test123";
+                obj.clave = clave;
+
+                return oDL_Usuarios.RegistrarUsuario(obj, out Mensaje);
+            }
+            else
+            {
+                return 0;
+            }
+                       
         }
 
     }
