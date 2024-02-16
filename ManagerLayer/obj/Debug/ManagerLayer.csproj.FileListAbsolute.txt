@@ -84,3 +84,12 @@ C:\Users\prisc\OneDrive\Desktop\Repositorio\Ecommerce\ManagerLayer\bin\es\System
 C:\Users\prisc\OneDrive\Desktop\Repositorio\Ecommerce\ManagerLayer\obj\Debug\ManagerLayer.csproj.CopyComplete
 C:\Users\prisc\OneDrive\Desktop\Repositorio\Ecommerce\ManagerLayer\obj\Debug\ManagerLayer.dll
 C:\Users\prisc\OneDrive\Desktop\Repositorio\Ecommerce\ManagerLayer\obj\Debug\ManagerLayer.pdb
+C:\Users\prisc\OneDrive\Desktop\Repositorio\Ecommerce\ManagerLayer\bin\BusinessLayer.dll
+C:\Users\prisc\OneDrive\Desktop\Repositorio\Ecommerce\ManagerLayer\bin\EntityLayer.dll
+C:\Users\prisc\OneDrive\Desktop\Repositorio\Ecommerce\ManagerLayer\bin\DataLayer.dll
+C:\Users\prisc\OneDrive\Desktop\Repositorio\Ecommerce\ManagerLayer\bin\EntityFramework.dll
+C:\Users\prisc\OneDrive\Desktop\Repositorio\Ecommerce\ManagerLayer\bin\BusinessLayer.pdb
+C:\Users\prisc\OneDrive\Desktop\Repositorio\Ecommerce\ManagerLayer\bin\EntityLayer.pdb
+C:\Users\prisc\OneDrive\Desktop\Repositorio\Ecommerce\ManagerLayer\bin\EntityLayer.dll.config
+C:\Users\prisc\OneDrive\Desktop\Repositorio\Ecommerce\ManagerLayer\bin\DataLayer.pdb
+C:\Users\prisc\OneDrive\Desktop\Repositorio\Ecommerce\ManagerLayer\bin\EntityFramework.xml

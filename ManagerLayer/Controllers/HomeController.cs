@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using BusinessLayer;
+using EntityLayer;
 
 namespace ManagerLayer.Controllers
 {
@@ -17,6 +19,14 @@ namespace ManagerLayer.Controllers
         {
            return View();
         }
+
+        public JsonResult GetUsuarios()
+        {
+            List<Usuario> oUsuarios = new List<Usuario>();
+            oUsuarios = new BL_Usuarios().ListarUsuarios();
+
+            return Json(new { data = oUsuarios } , JsonRequestBehavior.AllowGet);
+        }   
        
     }
 }

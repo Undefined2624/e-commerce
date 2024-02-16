@@ -1,0 +1,14 @@
+C:\Users\prisc\OneDrive\Desktop\Repositorio\Ecommerce\BusinessLayer\bin\Debug\BusinessLayer.dll
+C:\Users\prisc\OneDrive\Desktop\Repositorio\Ecommerce\BusinessLayer\bin\Debug\BusinessLayer.pdb
+C:\Users\prisc\OneDrive\Desktop\Repositorio\Ecommerce\BusinessLayer\bin\Debug\DataLayer.dll
+C:\Users\prisc\OneDrive\Desktop\Repositorio\Ecommerce\BusinessLayer\bin\Debug\EntityLayer.dll
+C:\Users\prisc\OneDrive\Desktop\Repositorio\Ecommerce\BusinessLayer\bin\Debug\EntityFramework.dll
+C:\Users\prisc\OneDrive\Desktop\Repositorio\Ecommerce\BusinessLayer\bin\Debug\DataLayer.pdb
+C:\Users\prisc\OneDrive\Desktop\Repositorio\Ecommerce\BusinessLayer\bin\Debug\EntityLayer.pdb
+C:\Users\prisc\OneDrive\Desktop\Repositorio\Ecommerce\BusinessLayer\bin\Debug\EntityLayer.dll.config
+C:\Users\prisc\OneDrive\Desktop\Repositorio\Ecommerce\BusinessLayer\bin\Debug\EntityFramework.xml
+C:\Users\prisc\OneDrive\Desktop\Repositorio\Ecommerce\BusinessLayer\obj\Debug\BusinessLayer.csproj.AssemblyReference.cache
+C:\Users\prisc\OneDrive\Desktop\Repositorio\Ecommerce\BusinessLayer\obj\Debug\BusinessLayer.csproj.CoreCompileInputs.cache
+C:\Users\prisc\OneDrive\Desktop\Repositorio\Ecommerce\BusinessLayer\obj\Debug\BusinessLayer.csproj.CopyComplete
+C:\Users\prisc\OneDrive\Desktop\Repositorio\Ecommerce\BusinessLayer\obj\Debug\BusinessLayer.dll
+C:\Users\prisc\OneDrive\Desktop\Repositorio\Ecommerce\BusinessLayer\obj\Debug\BusinessLayer.pdb
