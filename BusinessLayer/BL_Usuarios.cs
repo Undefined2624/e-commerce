@@ -83,5 +83,10 @@ namespace BusinessLayer
            
         }
 
+        public bool EliminarUsuario(int idUsuario, out string Mensaje)
+        {
+            return oDL_Usuarios.EliminarUsuario(idUsuario, out Mensaje);
+        }
+
     }
 }
