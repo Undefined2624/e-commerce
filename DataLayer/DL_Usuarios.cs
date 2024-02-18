@@ -8,12 +8,13 @@ using System.Data.SqlClient;
 using System.Data;
 using System.Net.Configuration;
 using System.CodeDom;
+using System.Globalization;
 
 namespace DataLayer
 {
     public class DL_Usuarios
     {
-        public List<Usuario> listarUsuarios()
+        public List<Usuario> ListarUsuarios()
         {
             List<Usuario> usuarios = new List<Usuario>();
 
@@ -59,7 +60,7 @@ namespace DataLayer
             return usuarios;
         }
 
-        public int registrarUsuario(Usuario obj, out string Mensaje)
+        public int RegistrarUsuario(Usuario obj, out string Mensaje)
         {
             int idAutogerenado = 0;
             Mensaje = string.Empty;
@@ -96,7 +97,7 @@ namespace DataLayer
 
         }
 
-        public bool editarUsuario(Usuario obj, out string Mensaje)
+        public bool EditarUsuario(Usuario obj, out string Mensaje)
         {
             bool resultado = false;
             Mensaje = string.Empty;
@@ -134,5 +135,34 @@ namespace DataLayer
 
         }   
 
+        public bool EliminarUsuario(int idUsuario, out string Mensaje)
+        {
+            bool resultado = false;
+            Mensaje = string.Empty;
+
+            try
+            {
+                using (SqlConnection oconexion = new SqlConnection(Connection.cn))
+                {
+                    SqlCommand cmd = new SqlCommand("delete top (1) from usuario where idUsuario = @idUsuario", oconexion);
+                    cmd.Parameters.AddWithValue("@idUsuario", idUsuario);
+                   
+                    cmd.CommandType = CommandType.Text;
+
+                    oconexion.Open();
+
+                    resultado = cmd.ExecuteNonQuery() > 0 ? true : false;
+                }
+            }
+            catch (Exception e)
+            {
+                resultado = false;
+                Mensaje = e.Message;
+            }
+
+            return resultado;
+
+        }   
+       
     }
 }

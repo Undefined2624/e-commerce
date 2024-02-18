@@ -38,7 +38,7 @@ namespace BusinessLayer
             if (string.IsNullOrEmpty(Mensaje))
             {
                 string clave = "test123";
-                obj.clave = clave;
+                obj.clave = BL_Recursos.convertirSHA256(clave);
 
                 return oDL_Usuarios.RegistrarUsuario(obj, out Mensaje);
             }
@@ -47,6 +47,40 @@ namespace BusinessLayer
                 return 0;
             }
                        
+        }
+
+        public bool EditarUsuario(Usuario obj, out string Mensaje)
+        {
+            Mensaje = string.Empty;
+
+            if (string.IsNullOrEmpty(obj.nombre) || string.IsNullOrWhiteSpace(obj.nombre))
+            {
+
+                Mensaje = "El campo nombre es obligatorio";
+
+            }
+            else if (string.IsNullOrEmpty(obj.apellidos) || string.IsNullOrWhiteSpace(obj.apellidos))
+            {
+                Mensaje = "El campo apellidos es obligatorio";
+
+            }
+            else if (string.IsNullOrEmpty(obj.correo) || string.IsNullOrWhiteSpace(obj.correo))
+            {
+                Mensaje = "El campo correo es obligatorio";
+
+            }
+
+            if (string.IsNullOrEmpty(Mensaje))
+            {
+
+              return oDL_Usuarios.EditarUsuario(obj, out Mensaje);
+
+            }
+            else
+            {
+                return false;
+            }
+           
         }
 
     }
