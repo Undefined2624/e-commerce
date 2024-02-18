@@ -69,7 +69,8 @@ namespace DataLayer
             {
                 using (SqlConnection oconexion = new SqlConnection(Connection.cn))
                 {
-                     SqlCommand cmd = new SqlCommand("sp_registrarUsuario", oconexion);
+                     SqlCommand cmd = new SqlCommand("dbo.sp_registrarUsuario", oconexion);
+                     cmd.CommandType = CommandType.StoredProcedure; // Especifica que el comando es un procedimiento almacenado
                      cmd.Parameters.AddWithValue("@nombre", obj.nombre);
                      cmd.Parameters.AddWithValue("@apellidos", obj.apellidos);
                      cmd.Parameters.AddWithValue("@correo", obj.correo);

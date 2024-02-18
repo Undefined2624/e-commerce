@@ -17,7 +17,7 @@ namespace ManagerLayer.Controllers
 
         public ActionResult Usuarios()
         {
-           return View();
+            return View();
         }
 
         public JsonResult GetUsuarios()
@@ -25,7 +25,7 @@ namespace ManagerLayer.Controllers
             List<Usuario> oUsuarios = new List<Usuario>();
             oUsuarios = new BL_Usuarios().ListarUsuarios();
 
-            return Json(new { data = oUsuarios } , JsonRequestBehavior.AllowGet);
+            return Json(new { data = oUsuarios }, JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]
@@ -47,9 +47,9 @@ namespace ManagerLayer.Controllers
 
             }
 
-            return Json(new {ResultadoJson = Resultado, MensajeJson = Mensaje}, JsonRequestBehavior.AllowGet); //Esta línea retorna un objeto JSON con el resultado y el mensaje de la operación realizada (guardar o editar) 
+            return Json(new { ResultadoJson = Resultado, MensajeJson = Mensaje }, JsonRequestBehavior.AllowGet); //Esta línea retorna un objeto JSON con el resultado y el mensaje de la operación realizada (guardar o editar) 
 
         }
-       
+
     }
 }

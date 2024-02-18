@@ -64,20 +64,19 @@
                             <option value="1">Activo</option>
                             <option value="0">Inactivo</option>
                         </select>
-                    </div>
-                    
+                    </div>                    
                 </div>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-warning btn-sm" data-bs-dismiss="modal">Cerrar</button>
-                <button type="button" class="btn btn-primary btn-sm" onclick="saveUser()">Guardar</button>
+                <button type="button" class="btn btn-primary btn-sm" onclick="GuardarUsuario()">Guardar</button>
             </div>
         </div>
     </div>
 </div>
 
-
 @section Scripts{
+
     <script>
 
         var tabladata;
@@ -150,8 +149,64 @@
         
         });
 
-        function saveUser() {
+        function GuardarUsuario() {
            
+            var Usuario = {
+
+                idUsuario: $("#idUser").val(),
+                nombre: $("#nameInput").val(),
+                apellidos: $("#lastNamesInput").val(),
+                correo: $("#emailInput").val(),
+                activo: $("#estadoSelect").val() == 1 ? true : false // Convierte el valor del select a booleano que significa 0 = false (inactivo) y 1 = true (activo) 
+
+            }
+
+            jQuery.ajax({
+
+                url: '@Url.Action("GuardarUsuario","Home")', // Se llama al método GuardarUsuario del controlador Home
+                type: 'POST',
+                data: JSON.stringify({ oUsuario: Usuario }), // Se asigna el objeto Usuario al parámetro oUsuario y Se envía al controlador Home. JSON.stringify convierte el objeto a formato JSON.
+                dataType: 'json',
+                contentType: 'application/json; charset=utf-8',
+               
+                success: function (data) { // Se ejecuta si la petición es exitosa. data es la respuesta del controlador (método GuardarUsuario).
+
+                    debugger;
+
+                    if (Usuario.idUsuario == 0) // Si el id del usuario es 0, significa que es un USUARIO NUEVO
+                    { 
+
+                        if (data.idUsuario != 0) { // Si el id del usuario es diferente de 0, significa que el usuario se guardó correctamente
+
+                            Usuario.idUsuario = data.Resultado; // Se asigna el id del usuario que se guardó correctamente
+                            tabladata.row.add(Usuario).draw(false); // Se agrega el nuevo usuario a la tabla
+
+                            $("#formModal").modal("hide"); // Se cierra el modal
+
+                        }
+                        else
+                        {
+                            alert(data.Mensaje); // Si el id del usuario sigue siendo 0 luego de registrar el id devuelto por el controlador, significa que el usuario no se guardó correctamente
+                        }
+                        
+                    }
+                    else
+                    {
+                        tabladata.row(filaSeleccionada).data(Usuario).draw(false); // Se actualiza la fila seleccionada con los datos del usuario
+                    }
+
+                },
+                error: function (error) { // Se ejecuta si la petición falla
+
+                    console.log(error);
+
+                },
+                beforeSend: function () { // Se ejecuta antes de enviar la petición 
+
+                    console.log("Enviando datos...");
+
+                }
+            });
 
         }    
 
