@@ -33,7 +33,20 @@
             </tbody>
         </table>
     </div>
+    <div class="row">
+        <div class="col-6">
+            <div id="toast" class="toast align-items-center text-white bg-success border-0" role="alert" aria-live="assertive" aria-atomic="true">
+                <div class="d-flex">
+                    <div class="toast-body">
+                        Hello, world! This is a toast message.
+                    </div>
+                    <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
+
 <!-- Modal -->
 <div class="modal fade" id="formModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" data-bs-backdrop="static">
     <div class="modal-dialog modal-dialog-centered">
@@ -42,9 +55,9 @@
                 <h5 class="modal-title" id="exampleModalLabel">Usuario</h5>
                 <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <div class="modal-body g-2">
+            <div class="modal-body">
                 <input id="idUser" type="text" value="0"/> @*Si el valor es 0, el usuario es nuevo*@
-                <div class="row">
+                <div class="row  g-2">
                     <div class="col-sm-6">
                         <label for="nameInput" class="form-label">Nombre</label>
                         <input type="text" class="form-control" id="nameInput">
@@ -67,6 +80,15 @@
                     </div>                    
                 </div>
             </div>
+
+            <div class="row mt-2">
+                <div class="col-12">
+                    <div id="MensajeError" class="alert alert-danger" role="alert">
+                        A simple dark alert—check it out!
+                    </div>
+                </div>
+            </div>
+
             <div class="modal-footer">
                 <button type="button" class="btn btn-warning btn-sm" data-bs-dismiss="modal">Cerrar</button>
                 <button type="button" class="btn btn-primary btn-sm" onclick="GuardarUsuario()">Guardar</button>
@@ -120,14 +142,15 @@
                 }
             ]
         });
-
+                
         function openModal(data) {
 
             $("#idUser").val(0);
             $("#nameInput").val("");
             $("#lastNamesInput").val("");
             $("#emailInput").val("");
-            $("#estadoSelect").val("");
+            $("#estadoSelect").val(1);
+            $("#MensajeError").hide();
 
             if (data != null) {
                 $("#idUser").val(data.idUsuario);
@@ -150,7 +173,7 @@
         });
 
         function GuardarUsuario() {
-           
+                       
             var Usuario = {
 
                 idUsuario: $("#idUser").val(),
@@ -170,9 +193,7 @@
                 contentType: 'application/json; charset=utf-8',
                
                 success: function (data) { // Se ejecuta si la petición es exitosa. data es la respuesta del controlador (método GuardarUsuario).
-
-                    debugger;
-
+                debugger;
                     if (Usuario.idUsuario == 0) // Si el id del usuario es 0, significa que es un USUARIO NUEVO
                     { 
 
@@ -182,12 +203,17 @@
                             tabladata.row.add(Usuario).draw(false); // Se agrega el nuevo usuario a la tabla
 
                             $("#formModal").modal("hide"); // Se cierra el modal
+                            $("#toast .toast-body").text(data.MensajeJson);
+                            $("#toast").show();
+                            $("#toast").fadeOut(6000);
 
                         }
                         else
                         {
-                            alert(data.MensajeJson); // Si el id del usuario sigue siendo 0 luego de registrar el id devuelto por el controlador, significa que el usuario no se guardó correctamente
-                            $("formModal").modal("hide"); // Se cierra el modal
+                           
+                         $("#MensajeError").text(data.MensajeJson);
+                         $("#MensajeError").show(); 
+                          
                         }
                         
                     }
@@ -195,10 +221,12 @@
                     {
                          // Se actualiza la fila seleccionada con los datos del usuario
                         $("#formModal").modal("hide");
-                        alert(data.JsonMensaje);
                         $("#tabla").DataTable().ajax.reload(
                             null, false
                         );  
+                        $("#toast .toast-body").text(data.MensajeJson);
+                        $("#toast").show();
+                        $("#toast").fadeOut(6000);
                     }
 
                 },
