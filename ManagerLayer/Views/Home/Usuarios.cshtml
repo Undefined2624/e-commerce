@@ -43,7 +43,7 @@
                 <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body g-2">
-                <input id="idUser" type="hidden" value="0"/> @*Si el valor es 0, el usuario es nuevo*@
+                <input id="idUser" type="text" value="0"/> @*Si el valor es 0, el usuario es nuevo*@
                 <div class="row">
                     <div class="col-sm-6">
                         <label for="nameInput" class="form-label">Nombre</label>
@@ -113,7 +113,7 @@
                     }
                 },
                 {
-                    "defaultContent": "<button class='btn btn-warning btn-sm btn-editar'><i class='fas fa-pen'></i></button> <button class='btn btn-danger btn-sm'><i class='fas fa-trash'></i></button>",
+                    "defaultContent": "<button class='btn btn-warning btn-sm btn-editar'><i class='fas fa-pen'></i></button> <button class='btn btn-danger btn-sm btn-eliminar'><i class='fas fa-trash'></i></button>",
                     "orderable": false,
                     "searchable": false,
                     "width": "55px"
@@ -176,9 +176,9 @@
                     if (Usuario.idUsuario == 0) // Si el id del usuario es 0, significa que es un USUARIO NUEVO
                     { 
 
-                        if (data.idUsuario != 0) { // Si el id del usuario es diferente de 0, significa que el usuario se guardó correctamente
+                        if (data.ResultadoJson != 0) { // Si el id del usuario es diferente de 0, significa que el usuario se guardó correctamente
 
-                            Usuario.idUsuario = data.Resultado; // Se asigna el id del usuario que se guardó correctamente
+                            Usuario.idUsuario = data.ResultadoJson; // Se asigna el id del usuario que se guardó correctamente
                             tabladata.row.add(Usuario).draw(false); // Se agrega el nuevo usuario a la tabla
 
                             $("#formModal").modal("hide"); // Se cierra el modal
@@ -186,13 +186,19 @@
                         }
                         else
                         {
-                            alert(data.Mensaje); // Si el id del usuario sigue siendo 0 luego de registrar el id devuelto por el controlador, significa que el usuario no se guardó correctamente
+                            alert(data.MensajeJson); // Si el id del usuario sigue siendo 0 luego de registrar el id devuelto por el controlador, significa que el usuario no se guardó correctamente
+                            $("formModal").modal("hide"); // Se cierra el modal
                         }
                         
                     }
                     else
                     {
-                        tabladata.row(filaSeleccionada).data(Usuario).draw(false); // Se actualiza la fila seleccionada con los datos del usuario
+                         // Se actualiza la fila seleccionada con los datos del usuario
+                        $("#formModal").modal("hide");
+                        alert(data.JsonMensaje);
+                        $("#tabla").DataTable().ajax.reload(
+                            null, false
+                        );  
                     }
 
                 },
@@ -209,6 +215,48 @@
             });
 
         }    
+
+        function EliminarUsuario() {
+
+            $("#tabla tbody").on("click", ".btn-eliminar", function () {
+
+                var filaSeleccionada = $(this).closest('tr');
+                var data = tabladata.row(filaSeleccionada).data();
+
+                 jQuery.ajax({
+
+                    url: '@Url.Action("EliminarUsuario","Home")',
+                    type: 'POST',
+                    data: JSON.stringify({ idUsuario: data.idUsuario }),
+                    dataType: 'json',
+                    contentType: 'application/json; charset=utf-8',
+                    success: function (data) {
+
+                        if (data.Resultado) {
+
+                            tabladata.row(filaSeleccionada).remove().draw(false);
+
+                        }
+                        else
+                        {
+                            alert(data.Mensaje);
+                        }
+
+                    },
+                    error: function (error) {
+
+                        console.log(error);
+
+                    },
+                    beforeSend: function () {
+
+                        console.log("Enviando datos...");
+
+                    }
+                });
+
+            });
+        }
 
     </script>
     

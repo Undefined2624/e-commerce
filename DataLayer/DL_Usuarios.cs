@@ -107,15 +107,16 @@ namespace DataLayer
             {
                 using (SqlConnection oconexion = new SqlConnection(Connection.cn))
                 {
-                    SqlCommand cmd = new SqlCommand("sp_editarUsuario", oconexion);
+                    SqlCommand cmd = new SqlCommand("sp_EditarUsuario", oconexion);
+
+                    cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.AddWithValue("@idUsuario", obj.idUsuario);
                     cmd.Parameters.AddWithValue("@nombre", obj.nombre);
                     cmd.Parameters.AddWithValue("@apellidos", obj.apellidos);
                     cmd.Parameters.AddWithValue("@correo", obj.correo);
                     cmd.Parameters.AddWithValue("@activo", obj.activo);
                     cmd.Parameters.Add("mensaje", SqlDbType.VarChar, 500).Direction = ParameterDirection.Output;
-
-                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.Add("resultado", SqlDbType.Bit).Direction = ParameterDirection.Output;
 
                     oconexion.Open();
 

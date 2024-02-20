@@ -51,5 +51,16 @@ namespace ManagerLayer.Controllers
 
         }
 
+        [HttpPost]
+        public JsonResult EliminarUsuario(int idUsuario)
+        {
+            object Resultado;
+            string Mensaje = string.Empty;
+
+            Resultado = new BL_Usuarios().EliminarUsuario(idUsuario, out Mensaje);
+
+            return Json(new { ResultadoJson = Resultado, MensajeJson = Mensaje }, JsonRequestBehavior.AllowGet);
+        }
+
     }
 }
