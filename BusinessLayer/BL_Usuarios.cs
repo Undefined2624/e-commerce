@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using EntityLayer;
 using DataLayer;
+using System.Security.Cryptography;
 
 namespace BusinessLayer
 {
@@ -37,10 +38,27 @@ namespace BusinessLayer
 
             if (string.IsNullOrEmpty(Mensaje))
             {
-                string clave = "test123";
+                
+                string clave = BL_Recursos.GenerarClave();
+                string asunto = "Registro de Usuario en Ecommerce PetsPoppins.cl";
+                string mensaje = "<h3>Su cuenta en PetsPoppins.cl ha sido creada con éxito</h3><br>" +
+                    "<p>Estimado(a) " + obj.nombre + " " + obj.apellidos + ", su cuenta en PetsPoppins.cl ha sido creada con éxito 😉. " +
+                    "A continuación se detallan sus credenciales de acceso:</p><br>" +
+                    "<p>Correo: " + obj.correo + "</p>" +
+                    "<p>Clave: " + clave + "</p><br>" +
+                    "<p>Para ingresar a su cuenta, haga clic en el siguiente enlace: <a href='http://localhost:44300/'>PetsPoppins.cl</a></p><br>" +
+                    "<p>Atentamente, el equipo de PetsPoppins.cl 😍</p>";  
+
                 obj.clave = BL_Recursos.convertirSHA256(clave);
 
-                return oDL_Usuarios.RegistrarUsuario(obj, out Mensaje);
+                int id = oDL_Usuarios.RegistrarUsuario(obj, out Mensaje);
+
+                if (id > 0)
+                {
+                    bool respuesta = BL_Recursos.EnviarCorreo(obj.correo, asunto, mensaje);
+                }
+
+                return id;
             }
             else
             {
