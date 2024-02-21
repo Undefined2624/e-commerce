@@ -103,7 +103,7 @@ namespace DataLayer
                     SqlCommand cmd = new SqlCommand("sp_EditarCategoria", oconexion);
 
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.AddWithValue("@idCategoria", obj.idUsuario);
+                    cmd.Parameters.AddWithValue("@idCategoria", obj.idCategoria);
                     cmd.Parameters.AddWithValue("@nombre", obj.nombre);
                     cmd.Parameters.AddWithValue("@descripcion", obj.descripcion);
                     cmd.Parameters.AddWithValue("@activo", obj.activo);
