@@ -8,6 +8,7 @@
     <li class="breadcrumb-item"><a href="@Url.Action("Index","Home")">Resumen</a></li>
     <li class="breadcrumb-item active">Usuarios</li>
 </ol>
+
 <div class="card mt-0">
     <div class="card-header">
         <i class="fas fa-users me-1"></i> <b>Usuarios</b>
@@ -35,7 +36,7 @@
     </div>
     <div class="row">
         <div class="col-6">
-            <div id="toast" class="toast align-items-center text-white bg-success border-0" role="alert" aria-live="assertive" aria-atomic="true">
+            <div id="toast" class="toast align-items-end text-white bg-success border-0" role="alert" aria-live="assertive" aria-atomic="true">
                 <div class="d-flex">
                     <div class="toast-body">
                         Hello, world! This is a toast message.
@@ -56,7 +57,7 @@
                 <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <input id="idUser" type="text" value="0"/> @*Si el valor es 0, el usuario es nuevo*@
+                <input id="idUser" type="text" value="0" /> @*Si el valor es 0, el usuario es nuevo*@
                 <div class="row  g-2">
                     <div class="col-sm-6">
                         <label for="nameInput" class="form-label">Nombre</label>
@@ -77,7 +78,7 @@
                             <option value="1">Activo</option>
                             <option value="0">Inactivo</option>
                         </select>
-                    </div>                    
+                    </div>
                 </div>
             </div>
 
@@ -91,7 +92,13 @@
 
             <div class="modal-footer">
                 <button type="button" class="btn btn-warning btn-sm" data-bs-dismiss="modal">Cerrar</button>
-                <button type="button" class="btn btn-primary btn-sm" onclick="GuardarUsuario()">Guardar</button>
+
+                <button type="button" class="btn btn-primary btn-sm" id="btnGuardar" onclick="GuardarUsuario()">
+                    <span id="spinner" class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true" style="display:none;"></span>
+                    <span id="btnText">Guardar</span>
+                </button>
+
+
             </div>
         </div>
     </div>
@@ -142,7 +149,7 @@
                 }
             ]
         });
-                
+
         function openModal(data) {
 
             $("#idUser").val(0);
@@ -157,9 +164,9 @@
                 $("#nameInput").val(data.nombre);
                 $("#lastNamesInput").val(data.apellidos);
                 $("#emailInput").val(data.correo);
-                $("#estadoSelect").val(data.activo == true ? 1 : 0);                             
-                
-            } 
+                $("#estadoSelect").val(data.activo == true ? 1 : 0);
+
+            }
 
             $('#formModal').modal('show');
         }
@@ -169,18 +176,22 @@
             var filaSeleccionada = $(this).closest('tr');
             var data = tabladata.row(filaSeleccionada).data();
             openModal(data);
-        
+
         });
 
         function GuardarUsuario() {
-                       
+
+            $("#btnGuardar").prop('disabled', true); // Deshabilita el botón para prevenir clicks adicionales
+            $("#spinner").show();
+            $("#btnText").text("Guardando...");
+
             var Usuario = {
 
                 idUsuario: $("#idUser").val(),
                 nombre: $("#nameInput").val(),
                 apellidos: $("#lastNamesInput").val(),
                 correo: $("#emailInput").val(),
-                activo: $("#estadoSelect").val() == 1 ? true : false // Convierte el valor del select a booleano que significa 0 = false (inactivo) y 1 = true (activo) 
+                activo: $("#estadoSelect").val() == 1 ? true : false // Convierte el valor del select a booleano que significa 0 = false (inactivo) y 1 = true (activo)
 
             }
 
@@ -191,11 +202,11 @@
                 data: JSON.stringify({ oUsuario: Usuario }), // Se asigna el objeto Usuario al parámetro oUsuario y Se envía al controlador Home. JSON.stringify convierte el objeto a formato JSON.
                 dataType: 'json',
                 contentType: 'application/json; charset=utf-8',
-               
+
                 success: function (data) { // Se ejecuta si la petición es exitosa. data es la respuesta del controlador (método GuardarUsuario).
-                debugger;
+                    debugger;
                     if (Usuario.idUsuario == 0) // Si el id del usuario es 0, significa que es un USUARIO NUEVO
-                    { 
+                    {
 
                         if (data.ResultadoJson != 0) { // Si el id del usuario es diferente de 0, significa que el usuario se guardó correctamente
 
@@ -210,12 +221,12 @@
                         }
                         else
                         {
-                           
+
                          $("#MensajeError").text(data.MensajeJson);
-                         $("#MensajeError").show(); 
-                          
+                         $("#MensajeError").show();
+
                         }
-                        
+
                     }
                     else
                     {
@@ -223,7 +234,7 @@
                         $("#formModal").modal("hide");
                         $("#tabla").DataTable().ajax.reload(
                             null, false
-                        );  
+                        );
                         $("#toast .toast-body").text(data.MensajeJson);
                         $("#toast").show();
                         $("#toast").fadeOut(6000);
@@ -235,14 +246,20 @@
                     console.log(error);
 
                 },
-                beforeSend: function () { // Se ejecuta antes de enviar la petición 
+                beforeSend: function () { // Se ejecuta antes de enviar la petición
 
                     console.log("Enviando datos...");
 
+                },
+                complete: function () {
+                    // Siempre oculta el spinner y muestra el texto original del botón cuando la operación haya finalizado
+                    $("#btnGuardar").prop('disabled', false); // Rehabilita el botón
+                    $("#spinner").hide();
+                    $("#btnText").text("Guardar");
                 }
             });
 
-        }    
+        }
 
         function EliminarUsuario() {
 
@@ -287,5 +304,5 @@
         }
 
     </script>
-    
+
 }
