@@ -179,6 +179,57 @@
 
         });
 
+        $("#tabla tbody").on("click", ".btn-eliminar", function () {
+
+            var usuarioSeleccionado = $(this).closest('tr');
+            var data = tabladata.row(usuarioSeleccionado).data();
+            console.log(data);
+
+            swal({
+                title: "¿Está seguro de que desea eliminar este usuario? 😳",
+                text: "El usuario será eliminado de forma permanente",
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonClass: "btn-danger",
+                confirmButtonText: "Sí!, Eliminar",
+                cancelButtonText: "Cancelar",
+                closeOnConfirm: false
+            },
+                function () {
+
+                    jQuery.ajax({
+                        url: '@Url.Action("EliminarUsuario","Home")',
+                        type: 'POST',
+                        data: JSON.stringify({ idUsuario: data.idUsuario }),
+                        dataType: 'json',
+                        contentType: 'application/json; charset=utf-8',
+                        success: function (data) { //data almacena la respuesta del controlador
+
+                            if (data.ResultadoJson) {
+
+                                tabladata.row(usuarioSeleccionado).remove().draw();
+
+                            }
+                            else
+                            {
+
+                                swal("No se pudo eliminar el usuario", data.MensajeJson, "error");
+
+                            }
+                            
+                        },
+                        error: function (error) {
+
+                            console.log(error)
+
+                        }
+                    });
+
+                    swal("Eliminado!", "El usuario ha sido eliminado con éxito!", "success");
+                });
+
+        });
+
         function GuardarUsuario() {
 
             $("#btnGuardar").prop('disabled', true); // Deshabilita el botón para prevenir clicks adicionales
@@ -259,48 +310,6 @@
                 }
             });
 
-        }
-
-        function EliminarUsuario() {
-
-            $("#tabla tbody").on("click", ".btn-eliminar", function () {
-
-                var filaSeleccionada = $(this).closest('tr');
-                var data = tabladata.row(filaSeleccionada).data();
-
-                 jQuery.ajax({
-
-                    url: '@Url.Action("EliminarUsuario","Home")',
-                    type: 'POST',
-                    data: JSON.stringify({ idUsuario: data.idUsuario }),
-                    dataType: 'json',
-                    contentType: 'application/json; charset=utf-8',
-                    success: function (data) {
-
-                        if (data.Resultado) {
-
-                            tabladata.row(filaSeleccionada).remove().draw(false);
-
-                        }
-                        else
-                        {
-                            alert(data.Mensaje);
-                        }
-
-                    },
-                    error: function (error) {
-
-                        console.log(error);
-
-                    },
-                    beforeSend: function () {
-
-                        console.log("Enviando datos...");
-
-                    }
-                });
-
-            });
         }
 
     </script>

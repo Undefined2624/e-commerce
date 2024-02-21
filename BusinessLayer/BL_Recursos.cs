@@ -2,8 +2,12 @@
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
+using System.Runtime.Remoting.Messaging;
 using System.Text;
 using System.Threading.Tasks;
+using System.Net.Mail;
+using System.Net;
+using System.IO;
 
 namespace BusinessLayer
 {
@@ -23,5 +27,50 @@ namespace BusinessLayer
             }
         }   
 
+        public static string GenerarClave()
+        {
+            
+            string clave = Guid.NewGuid().ToString("N").Substring(0, 8);
+            return clave;
+
+        }   
+
+        public static bool EnviarCorreo(string correo, string asunto, string mensaje)
+        {
+
+            bool resultado = false;
+
+            try
+            {
+                
+                MailMessage mail = new MailMessage();
+                mail.To.Add(correo); //Correo destino
+                mail.From = new MailAddress("priscyxdxd@gmail.com"); //Correo origen
+                mail.Subject = asunto; //Asunto del correo
+                mail.Body = mensaje; //Mensaje del correo
+
+                mail.IsBodyHtml = true; //El mensaje se envía como HTML
+
+                var smtp = new SmtpClient
+                {
+                    Credentials = new NetworkCredential("priscyxdxd@gmail.com", "hiidenpshdqfqqzc"),
+                    Host = "smtp.gmail.com", //Servidor de correo
+                    Port = 587,
+                    EnableSsl = true
+                };
+
+                smtp.Send(mail); //Envío del correo
+                resultado = true;
+
+            }catch (Exception ex)
+            {
+                resultado = false;
+                
+            }
+
+            return resultado;
+
+        }
+       
     }
 }

@@ -146,7 +146,7 @@ namespace DataLayer
             {
                 using (SqlConnection oconexion = new SqlConnection(Connection.cn))
                 {
-                    SqlCommand cmd = new SqlCommand("delete top (1) from usuario where idUsuario = @idUsuario", oconexion);
+                    SqlCommand cmd = new SqlCommand("delete from usuario where idUsuario = @idUsuario", oconexion);
                     cmd.Parameters.AddWithValue("@idUsuario", idUsuario);
                    
                     cmd.CommandType = CommandType.Text;
