@@ -25,7 +25,7 @@ namespace ManagerLayer.Controllers
         {
             return View();
         }
-
+        #region Categorias
         public JsonResult GetCategorias()
         {
             List<Categoria> oCategoria = new List<Categoria>();
@@ -64,6 +64,52 @@ namespace ManagerLayer.Controllers
             string Mensaje = string.Empty;
 
             Resultado = new BL_Categoria().EliminarCategoria(idCategoria, out Mensaje);
+
+            return Json(new { ResultadoJson = Resultado, MensajeJson = Mensaje }, JsonRequestBehavior.AllowGet);
+        }
+
+        #endregion
+
+        #region Marcas
+
+        public JsonResult GetMarcas()
+        {
+            List<Marca> oMarca = new List<Marca>();
+            oMarca = new BL_Marca().ListarMarcas();
+
+            return Json(new { data = oMarca }, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        public JsonResult GuardarMarca(Marca oMarca) //Recibe un objeto de tipo Usuario 
+        {
+            object Resultado;
+            string Mensaje = string.Empty; //Variable para almacenar el mensaje de confirmación de la operación realizada (guardar o editar)
+
+            if (oMarca.idMarca == 0) //Categoría nueva
+            {
+
+                Resultado = new BL_Marca().RegistrarMarca(oMarca, out Mensaje); //retorna el id de la categoría registrada y un mensaje de confirmación 
+
+            }
+            else
+            {
+
+                Resultado = new BL_Marca().EditarMarca(oMarca, out Mensaje); //retorna true o false que significa si se edito o no la categoría  
+
+            }
+
+            return Json(new { ResultadoJson = Resultado, MensajeJson = Mensaje }, JsonRequestBehavior.AllowGet); //Esta línea retorna un objeto JSON con el resultado y el mensaje de la operación realizada (guardar o editar) 
+
+        }
+
+        [HttpPost]
+        public JsonResult EliminarMarca(int idMarca)
+        {
+            object Resultado;
+            string Mensaje = string.Empty;
+
+            Resultado = new BL_Marca().EliminarMarca(idMarca, out Mensaje);
 
             return Json(new { ResultadoJson = Resultado, MensajeJson = Mensaje }, JsonRequestBehavior.AllowGet);
         }
