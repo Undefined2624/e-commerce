@@ -14,7 +14,7 @@ namespace BusinessLayer
     {
         private DL_Categoria oDL_Categoria = new DL_Categoria();
 
-        public List<Categoria> ListarUsuarios()
+        public List<Categoria> ListarCategorias()
         {
             return oDL_Categoria.ListarCategorias();
         }
