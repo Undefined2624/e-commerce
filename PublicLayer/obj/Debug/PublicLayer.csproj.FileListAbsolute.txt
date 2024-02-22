@@ -84,3 +84,12 @@ C:\Users\prisc\OneDrive\Desktop\Repositorio\Ecommerce\PublicLayer\obj\Debug\Publ
 C:\Users\prisc\OneDrive\Desktop\Repositorio\Ecommerce\PublicLayer\obj\Debug\PublicLayer.csproj.CopyComplete
 C:\Users\prisc\OneDrive\Desktop\Repositorio\Ecommerce\PublicLayer\obj\Debug\PublicLayer.dll
 C:\Users\prisc\OneDrive\Desktop\Repositorio\Ecommerce\PublicLayer\obj\Debug\PublicLayer.pdb
+C:\Users\prisc\OneDrive\Desktop\Repositorio\Ecommerce\PublicLayer\bin\BusinessLayer.dll
+C:\Users\prisc\OneDrive\Desktop\Repositorio\Ecommerce\PublicLayer\bin\EntityLayer.dll
+C:\Users\prisc\OneDrive\Desktop\Repositorio\Ecommerce\PublicLayer\bin\DataLayer.dll
+C:\Users\prisc\OneDrive\Desktop\Repositorio\Ecommerce\PublicLayer\bin\EntityFramework.dll
+C:\Users\prisc\OneDrive\Desktop\Repositorio\Ecommerce\PublicLayer\bin\BusinessLayer.pdb
+C:\Users\prisc\OneDrive\Desktop\Repositorio\Ecommerce\PublicLayer\bin\EntityLayer.pdb
+C:\Users\prisc\OneDrive\Desktop\Repositorio\Ecommerce\PublicLayer\bin\EntityLayer.dll.config
+C:\Users\prisc\OneDrive\Desktop\Repositorio\Ecommerce\PublicLayer\bin\DataLayer.pdb
+C:\Users\prisc\OneDrive\Desktop\Repositorio\Ecommerce\PublicLayer\bin\EntityFramework.xml
