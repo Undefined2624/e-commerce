@@ -121,6 +121,49 @@ namespace DataLayer
 
         }
 
+        public bool GuardarDatosImagen(Producto oProducto, out string Mensaje) { 
+                        
+            bool resultado = false;
+            Mensaje = string.Empty;
+
+            try
+            {
+                using (SqlConnection oconexion = new SqlConnection(Connection.cn))
+                {
+
+                    string query = "UPDATE Producto SET rutaImagen = @rutaImagen, nombreImagen = @nombreImagen WHERE idProducto = @idProducto";
+
+                    SqlCommand cmd = new SqlCommand("dbo.sp_AgregarProducto", oconexion);
+                    cmd.CommandType = CommandType.StoredProcedure; // Especifica que el comando es un procedimiento almacenado
+                    cmd.Parameters.AddWithValue("@rutaImagen", oProducto.rutaImagen);
+                    cmd.Parameters.AddWithValue("@nombreImagen", oProducto.nombreImagen);
+                    cmd.Parameters.AddWithValue("@idProducto", oProducto.idProducto);
+
+                    oconexion.Open();
+
+                    cmd.ExecuteNonQuery();
+
+                    if (cmd.ExecuteNonQuery() > 0)
+                    {
+                        resultado = true;
+                    }
+                    else
+                    {
+                        Mensaje = "No se pudo guardar la imagen";
+                    }                                       
+
+                }
+            }
+            catch (Exception e)
+            {
+                resultado = false;
+                Mensaje = e.Message;
+            }
+
+            return resultado;
+
+        }
+
         public bool EditarProducto(Producto obj, out string Mensaje)
         {
             bool resultado = false;
