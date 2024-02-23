@@ -114,5 +114,12 @@ namespace ManagerLayer.Controllers
             return Json(new { ResultadoJson = Resultado, MensajeJson = Mensaje }, JsonRequestBehavior.AllowGet);
         }
 
+        #endregion
+
+        #region Productos
+
+
+        #endregion
+
     }
 }
