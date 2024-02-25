@@ -27,6 +27,9 @@ namespace EntityLayer
         public Nullable<int> idMarca { get; set; }
         public Nullable<int> idCategoria { get; set; }
         public Nullable<decimal> precioUnitario { get; set; }
+        public string precioTexto { get; set; }
+        public string base64 { get; set; }
+        public string extension { get; set; }
         public Nullable<int> stock { get; set; }
         public string rutaImagen { get; set; }
         public string nombreImagen { get; set; }

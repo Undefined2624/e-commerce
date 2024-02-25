@@ -6,6 +6,8 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using DataLayer;
+using Newtonsoft.Json;
+using System.Globalization;
 
 namespace ManagerLayer.Controllers
 {
@@ -118,6 +120,54 @@ namespace ManagerLayer.Controllers
 
         #region Productos
 
+        public JsonResult GetProductos()
+        {
+            List<Producto> oProducto = new List<Producto>();
+            oProducto = new BL_Producto().ListarProductos();
+
+            return Json(new { data = oProducto }, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        public JsonResult GuardarProducto(string Producto, HttpPostedFileBase ArchivoImagen) //Recibe un objeto de tipo Usuario 
+        {
+            object Resultado;
+            string Mensaje = string.Empty; //Variable para almacenar el mensaje de confirmación de la operación realizada (guardar o editar)
+            bool OperacionExitosa = true;
+            bool GuardarImagenExito = true;
+
+            Producto oProducto = new Producto();
+            oProducto = JsonConvert.DeserializeObject<Producto>(Producto);
+
+            decimal precio;
+
+            if (decimal.TryParse(oProducto.precioTexto,
+                                NumberStyles.AllowDecimalPoint, new CultureInfo("es-CL"), out precio))
+            {
+                oProducto.precioUnitario = precio;
+            }
+            else
+            {
+                return Json(new { OperacionExitosa = false, Mensaje = "El formato del precio debe ser 00.00" }, JsonRequestBehavior.AllowGet);
+            }
+                             
+            
+            if (oProducto.idProducto == 0) //Producto nuevo
+            {
+
+                Resultado = new BL_Producto().RegistrarProducto(oProducto, out Mensaje); //retorna el id de la categoría registrada y un mensaje de confirmación 
+
+            }
+            else
+            {
+
+                Resultado = new BL_Producto().EditarProducto(oProducto, out Mensaje); //retorna true o false que significa si se edito o no la categoría  
+
+            }
+
+            return Json(new { ResultadoJson = Resultado, MensajeJson = Mensaje }, JsonRequestBehavior.AllowGet); //Esta línea retorna un objeto JSON con el resultado y el mensaje de la operación realizada (guardar o editar) 
+
+        }
 
         #endregion
 
