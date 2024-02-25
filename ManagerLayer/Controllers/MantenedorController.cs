@@ -10,6 +10,7 @@ using Newtonsoft.Json;
 using System.Globalization;
 using System.Configuration;
 using System.IO;
+using System.Runtime.InteropServices;
 
 namespace ManagerLayer.Controllers
 {
@@ -221,6 +222,38 @@ namespace ManagerLayer.Controllers
 
             return Json(new { OperacionExitosa = OperacionExitosa, idGenerado = oProducto.idProducto, Mensaje = Mensaje }, JsonRequestBehavior.AllowGet);
 
+        }
+
+        [HttpPost]
+        public JsonResult ImagenProducto(int idProducto)
+        {
+
+            bool conversion;
+            Producto oProducto = new BL_Producto().ListarProductos().Where(x => x.idProducto == idProducto).FirstOrDefault(); //Se obtiene el producto por su id 
+
+            string base64 = BL_Recursos.ConvertirBase64(Path.Combine(oProducto.rutaImagen, oProducto.nombreImagen), out conversion);
+
+            return Json(new
+            {
+
+                conversion = conversion,
+                base64 = base64,
+                extension = Path.GetExtension(oProducto.nombreImagen)
+
+            },
+               JsonRequestBehavior.AllowGet
+            );
+                       
+        }
+
+        public JsonResult EliminarProducto(int idProducto)
+        {
+            object Resultado;
+            string Mensaje = string.Empty;
+
+            Resultado = new BL_Producto().EliminarProducto(idProducto, out Mensaje);
+
+            return Json(new { ResultadoJson = Resultado, MensajeJson = Mensaje }, JsonRequestBehavior.AllowGet);
         }
 
         #endregion
