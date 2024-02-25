@@ -8,6 +8,8 @@ using System.Web.Mvc;
 using DataLayer;
 using Newtonsoft.Json;
 using System.Globalization;
+using System.Configuration;
+using System.IO;
 
 namespace ManagerLayer.Controllers
 {
@@ -154,18 +156,70 @@ namespace ManagerLayer.Controllers
             
             if (oProducto.idProducto == 0) //Producto nuevo
             {
+                
+                int idGenerado = new BL_Producto().RegistrarProducto(oProducto, out Mensaje);
+                
+                if (idGenerado != 0)
+                {
 
-                Resultado = new BL_Producto().RegistrarProducto(oProducto, out Mensaje); //retorna el id de la categoría registrada y un mensaje de confirmación 
+                    oProducto.idProducto = idGenerado;
+
+                }
+                else
+                {
+
+                    OperacionExitosa = false;
+
+                }               
 
             }
             else
             {
 
-                Resultado = new BL_Producto().EditarProducto(oProducto, out Mensaje); //retorna true o false que significa si se edito o no la categoría  
+                OperacionExitosa = new BL_Producto().EditarProducto(oProducto, out Mensaje); //retorna true o false que significa si se edito o no la categoría  
 
             }
 
-            return Json(new { ResultadoJson = Resultado, MensajeJson = Mensaje }, JsonRequestBehavior.AllowGet); //Esta línea retorna un objeto JSON con el resultado y el mensaje de la operación realizada (guardar o editar) 
+            if (OperacionExitosa)
+            {
+                if (ArchivoImagen != null)
+                {
+                    
+                    string rutaAlmacenamiento = ConfigurationManager.AppSettings["AlmacenamientoImagenes"];
+                    string extension = Path.GetExtension(ArchivoImagen.FileName);
+                    string nombreImagen = string.Concat(oProducto.idProducto.ToString(), extension); //Se concatena el id del producto con la extensión del archivo para que no se repitan nombres de archivos
+                
+                    try
+                    {
+
+                        ArchivoImagen.SaveAs(Path.Combine(rutaAlmacenamiento, nombreImagen)); //Se guarda la imagen en la ruta especificada en el archivo de configuración
+
+                    }catch(Exception e)
+                    {
+                        
+                        string mns = e.Message;
+                        GuardarImagenExito = false;
+
+                    }
+
+                    if (GuardarImagenExito)
+                    {
+                        oProducto.rutaImagen = rutaAlmacenamiento;
+                        oProducto.nombreImagen = nombreImagen;
+                        bool rspta = new BL_Producto().GuardarDatosImagen(oProducto, out Mensaje);
+
+                    }else
+                    {
+
+                        Mensaje = "Se guardó el producto, pero hubo problemas con la imagen";
+
+                    }
+
+
+                }
+            }
+
+            return Json(new { OperacionExitosa = OperacionExitosa, idGenerado = oProducto.idProducto, Mensaje = Mensaje }, JsonRequestBehavior.AllowGet);
 
         }
 
