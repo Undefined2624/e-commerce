@@ -43,6 +43,7 @@
   <ItemGroup>
     <Compile Include="BL_Categoria.cs" />
     <Compile Include="BL_Marca.cs" />
+    <Compile Include="BL_Producto.cs" />
     <Compile Include="BL_Recursos.cs" />
     <Compile Include="BL_Usuarios.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

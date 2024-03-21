@@ -11,7 +11,9 @@ namespace EntityLayer
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+    using System.Runtime.CompilerServices;
+
     public partial class Producto
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -21,7 +23,7 @@ namespace EntityLayer
             this.DetalleVenta = new HashSet<DetalleVenta>();
         }
     
-        public int idProducto { get; set; }
+        public int idProducto { get; set; }        
         public string nombre { get; set; }
         public string descripcion { get; set; }
         public Nullable<int> idMarca { get; set; }

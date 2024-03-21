@@ -45,6 +45,7 @@
     <Compile Include="Connection.cs" />
     <Compile Include="DL_Categoria.cs" />
     <Compile Include="DL_Marca.cs" />
+    <Compile Include="DL_Producto.cs" />
     <Compile Include="DL_Usuarios.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

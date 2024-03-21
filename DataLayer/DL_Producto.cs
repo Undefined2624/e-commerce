@@ -25,7 +25,7 @@ namespace DataLayer
                     StringBuilder sb = new StringBuilder();
 
                     sb.AppendLine("SELECT p.idProducto, p.nombre, p.descripcion, p.precioUnitario, p.stock, p.activo,");
-                    sb.AppendLine("c.idCategoria, c.nombre, c.descripcion as descripcionCategoria,");
+                    sb.AppendLine("c.idCategoria, c.nombre as nombreCategoria, c.descripcion as descripcionCategoria,");
                     sb.AppendLine("m.idMarca, m.nombre as nombreMarca,");
                     sb.AppendLine("p.rutaImagen, p.nombreImagen");
                     sb.AppendLine("FROM Producto P");
@@ -46,18 +46,18 @@ namespace DataLayer
                             productos.Add(
                                 new Producto()
                                 {
-                                    idProducto = Convert.ToInt32(reader["idMarca"]),
+                                    idProducto = Convert.ToInt32(reader["IdProducto"]),
                                     nombre = reader["nombre"].ToString(),
                                     descripcion = reader["descripcion"].ToString(),
                                     Marca = new Marca()
                                     {
                                         idMarca = Convert.ToInt32(reader["idMarca"]),
-                                        nombre = reader["nombre"].ToString()
+                                        nombre = reader["nombreMarca"].ToString()
                                     },
                                     Categoria = new Categoria()
                                     {
                                         idCategoria = Convert.ToInt32(reader["idCategoria"]),
-                                        nombre = reader["nombre"].ToString(),
+                                        nombre = reader["nombreCategoria"].ToString(),
                                         descripcion = reader["descripcionCategoria"].ToString()
                                     },
                                     precioUnitario = Convert.ToDecimal(reader["precioUnitario"]),                                                                       
@@ -133,8 +133,8 @@ namespace DataLayer
 
                     string query = "UPDATE Producto SET rutaImagen = @rutaImagen, nombreImagen = @nombreImagen WHERE idProducto = @idProducto";
 
-                    SqlCommand cmd = new SqlCommand("dbo.sp_AgregarProducto", oconexion);
-                    cmd.CommandType = CommandType.StoredProcedure; // Especifica que el comando es un procedimiento almacenado
+                    SqlCommand cmd = new SqlCommand(query, oconexion);
+                    cmd.CommandType = CommandType.Text; // Especifica que el comando es un procedimiento almacenado
                     cmd.Parameters.AddWithValue("@rutaImagen", oProducto.rutaImagen);
                     cmd.Parameters.AddWithValue("@nombreImagen", oProducto.nombreImagen);
                     cmd.Parameters.AddWithValue("@idProducto", oProducto.idProducto);

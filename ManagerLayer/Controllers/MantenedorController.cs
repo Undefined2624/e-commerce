@@ -30,6 +30,7 @@ namespace ManagerLayer.Controllers
         {
             return View();
         }
+
         #region Categorias
         public JsonResult GetCategorias()
         {
@@ -142,19 +143,6 @@ namespace ManagerLayer.Controllers
             Producto oProducto = new Producto();
             oProducto = JsonConvert.DeserializeObject<Producto>(Producto);
 
-            decimal precio;
-
-            if (decimal.TryParse(oProducto.precioTexto,
-                                NumberStyles.AllowDecimalPoint, new CultureInfo("es-CL"), out precio))
-            {
-                oProducto.precioUnitario = precio;
-            }
-            else
-            {
-                return Json(new { OperacionExitosa = false, Mensaje = "El formato del precio debe ser 00.00" }, JsonRequestBehavior.AllowGet);
-            }
-                             
-            
             if (oProducto.idProducto == 0) //Producto nuevo
             {
                 
@@ -224,7 +212,7 @@ namespace ManagerLayer.Controllers
 
         }
 
-        [HttpPost]
+        
         public JsonResult ImagenProducto(int idProducto)
         {
 
